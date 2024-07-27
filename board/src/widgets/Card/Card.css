@@ -1,0 +1,83 @@
+.widget-card {
+  width: 100%;
+  border: 1px solid rgb(229 231 235);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.widget-card > * + * {
+  margin-top: 0.2rem;
+}
+
+.widget-card-label {
+  font-size: 0.8rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: rgb(75 85 99);
+}
+
+.widget-card-label-right {
+  text-align: right;
+}
+
+.widget-card-label-left {
+  text-align: left;
+}
+
+.widget-card-label-center {
+  text-align: center;
+}
+
+.widget-card-value {
+  color: rgb(31 41 55);
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.widget-card-value-comparison {
+  display: flex;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  align-items: center;
+  color: rgb(75 85 99);
+  font-weight: 400;
+}
+
+.widget-card-value-comparison-right {
+  justify-content: flex-end;
+}
+
+.widget-card-value-comparison-left {
+  justify-content: flex-start;
+}
+
+.widget-card-value-comparison-center {
+  justify-content: center;
+}
+
+.widget-card-evol {
+  font-size: 0.8rem;
+  line-height: 1rem;
+  color: rgb(31 41 55);
+  padding-left: 0rem;
+  padding-right: 0.25rem;
+  font-weight: 400;
+}
+
+.widget-card-evol-positive {
+  color: rgb(22, 187, 82);
+}
+
+.widget-card-evol-negative {
+  color: rgb(195, 80, 80);
+}
+
+.widget-card-evol-null {
+}

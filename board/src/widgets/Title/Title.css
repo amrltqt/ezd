@@ -1,0 +1,34 @@
+.widget-text {
+  display: flex;
+  height: 100%;
+}
+
+.widget-text-horizontal {
+  align-items: center;
+  flex-direction: row;
+}
+
+.widget-text-horizontal > .widget-text-title {
+  flex-grow: 1;
+}
+
+.widget-text-vertical {
+  flex-direction: column;
+  justify-content: center;
+
+  margin: 0 0.12rem;
+}
+
+.widget-text-title {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  color: rgb(75 85 99);
+}
+
+.widget-text-subtitle {
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity));
+  font-size: 0.8rem /* 14px */;
+  line-height: 1rem /* 20px */;
+}
