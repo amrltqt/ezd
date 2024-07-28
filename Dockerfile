@@ -1,4 +1,3 @@
-# Use the official Node.js Alpine image as the base image
 FROM node:alpine 
 
 RUN apk add --no-cache \
@@ -14,26 +13,23 @@ RUN apk add --no-cache \
 ENV NODE_ENV=production
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV GOOGLE_CHROME_BIN=/usr/bin/chromium-browser
-ENV BOARD_URL=file:////usr/app/board/dist/index.html
+ENV BOARD_URL=file:///usr/app/dist/index.html
 
-# Set the working directory inside the container
 WORKDIR /usr/app
 
-RUN chmod -R 777 /tmp
 
-# Copy the package.json and package-lock.json files to the container
+RUN chmod -R 777 /tmp
 COPY ./server/package*.json ./
 
-# Install the project dependencies
 RUN npm ci --omit=dev
+COPY ./server/dist /usr/app/src
 
-COPY ./board/dist /usr/app/board/dist
+COPY ./board/dist /usr/app/dist
 
-# Copy the rest of the application code to the container
-COPY ./server/src /usr/app/server/src
+EXPOSE 8611
 
-# Expose the port on which your Express server is running (default is 3000)
-EXPOSE 3000
 
-# Start the Express server
-CMD [ "dumb-init", "node", "/usr/app/server/src/index.js" ]
+ENV SLACK_ACCESS_TOKEN $SLACK_ACCESS_TOKEN
+
+
+CMD [ "dumb-init", "node", "/usr/app/src/index.js" ]

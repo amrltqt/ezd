@@ -15,7 +15,7 @@ declare global {
 }
 
 const debug = import.meta.env.VITE_DEBUG_PANEL === "true" || false;
-console.log(debug);
+
 function App() {
   const [data, setData] = useState(window.data || {});
   const [widgets, setWidgets] = useState(window.widgets || []);

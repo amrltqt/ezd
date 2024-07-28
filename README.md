@@ -18,6 +18,10 @@ The client can then download the image to the target location. (Slack, Email, et
 
 ### Docker (Recommended)
 
+```shell
+docker run -p 8611:8611 amrltqt/ezd:latest
+```
+
 ## Development
 
 ### Build the app
@@ -27,4 +31,11 @@ Building the app create a single index.html bundle that can be served by a web s
 ```bash
 cd board
 VITE_DEBUG_PANEL=false npm run build
+```
+
+### Configure Slack
+
+```shell
+SLACK_ACCESS_TOKEN=xoxb-xxxx-xxxx-xxxx
+docker run -p 8611:8611 -e SLACK_ACCESS_TOKEN=$SLACK_ACCESS_TOKEN amrltqt/ezd:latest
 ```
