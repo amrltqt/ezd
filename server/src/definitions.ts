@@ -14,10 +14,11 @@ export interface Task {
   widgets: object;
   data: object;
   targets: DistributionTarget[];
+  size: number;
 }
 
 export interface TaskProcessor {
-  add: (widgets: object, data: object, targets: object[]) => Task;
+  add: (widgets: object, data: object, targets: object[], size: number) => Task;
   process: () => void;
 }
 

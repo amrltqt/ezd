@@ -6,3 +6,6 @@ build:
 
 dev-board:
 	npm --prefix ./board run dev
+
+dev-server:
+	npm --prefix ./server start

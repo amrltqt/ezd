@@ -24,9 +24,24 @@ const processor = new LocalTaskProcessor(
 );
 
 app.post("/screenshot", async (req, res) => {
-  const { widgets, data, targets } = req.body;
+  const { widgets, data, targets, size } = req.body;
 
-  const task = processor.add(widgets, data, targets);
+  if (!widgets || !data || !targets || !size) {
+    res.status(400).send("Missing required fields");
+    return;
+  }
+
+  if (!Array.isArray(targets)) {
+    res.status(400).send("Targets should be an array");
+    return;
+  }
+
+  if (typeof size !== "number") {
+    res.status(400).send("Size should be a number");
+    return;
+  }
+
+  const task = processor.add(widgets, data, targets, size);
   processor.process();
 
   res.send(JSON.stringify({ id: task.id }));

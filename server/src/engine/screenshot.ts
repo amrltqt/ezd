@@ -9,6 +9,7 @@ declare global {
   interface Window {
     data: any;
     widgets: any;
+    size: number;
   }
 }
 
@@ -37,13 +38,15 @@ export async function generate(task: Task): Promise<ImagePath> {
     })
   );
   await page.evaluateOnNewDocument(
-    ({ widgets, data }) => {
+    ({ widgets, data, size }) => {
       window.data = data;
       window.widgets = widgets;
+      window.size = size;
     },
     {
       widgets: task.widgets,
       data: task.data,
+      size: task.size,
     }
   );
 

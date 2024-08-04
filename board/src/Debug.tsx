@@ -8,13 +8,17 @@ export default function Debug({ board }: { board: React.ReactNode }) {
 
   const savedData = localStorage.getItem("data");
   const savedWidgets = localStorage.getItem("widgets");
+  const savedSize = localStorage.getItem("size");
 
   const [data, setData] = useState(
     savedData || JSON.stringify(context.data, null, 2)
   );
+
   const [widgets, setWidgets] = useState(
     savedWidgets || JSON.stringify(context.widgets, null, 2)
   );
+
+  const [size, setSize] = useState(savedSize || context.size);
 
   function handleDataChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setData(e.target.value);
@@ -26,6 +30,21 @@ export default function Debug({ board }: { board: React.ReactNode }) {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  function handleSizeChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = parseInt(e.target.value, 10);
+    if (isNaN(value)) {
+      return;
+    }
+
+    if (value < 1) {
+      return;
+    }
+
+    setSize(value);
+    context.setSize(value);
+    localStorage.setItem("size", value.toString());
   }
 
   function handleWidgetsChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -56,6 +75,15 @@ export default function Debug({ board }: { board: React.ReactNode }) {
         <div className="mx-auto border-dashed border-1 w-fit">{board}</div>
       </div>
       <div className="flex flex-col w-1/2 h-full">
+        <div className="">
+          <label htmlFor="size">Size</label>
+          <input
+            className="w-full p-2 border"
+            type="number"
+            value={size}
+            onChange={handleSizeChange}
+          />
+        </div>
         <div className="flex-1">
           <label htmlFor="data">Data</label>
           <textarea

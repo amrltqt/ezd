@@ -35,12 +35,12 @@ function App() {
       {debug && (
         <Debug
           board={
-            <Board widgets={widgets as AnyWidget[]} data={data} size={500} />
+            <Board widgets={widgets as AnyWidget[]} data={data} size={size} />
           }
         />
       )}
       {!debug && (
-        <Board widgets={widgets as AnyWidget[]} data={data} size={500} />
+        <Board widgets={widgets as AnyWidget[]} data={data} size={size} />
       )}
     </BoardContext.Provider>
   );

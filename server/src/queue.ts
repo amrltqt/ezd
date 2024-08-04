@@ -24,12 +24,13 @@ export class LocalTaskProcessor implements TaskProcessor {
     this.distributionStrategy = distributionStrategy;
   }
 
-  add(widgets: object, data: object, targets: object[]): Task {
+  add(widgets: object, data: object, targets: object[], size: number): Task {
     const task: Task = {
       id: randomUUID(),
       widgets,
       data,
       targets: targets as DistributionTarget[],
+      size,
     };
 
     this.queue.push(task);
