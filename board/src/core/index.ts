@@ -21,7 +21,7 @@ export type WidgetDefinition = {
   validator: Joi.ObjectSchema;
 };
 
-const referenceValidator = Joi.object({
+export const referenceValidator = Joi.object({
   type: Joi.string().valid("ref").required(),
   key: Joi.string().required(),
 });

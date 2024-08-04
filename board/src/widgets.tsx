@@ -10,6 +10,7 @@ import LineChartDefinition, { LineChart } from "./widgets/LineChart";
 import BarChartDefinition, { BarChart } from "./widgets/BarChart";
 import TableDefinition, { Table } from "./widgets/Table";
 import RichTextDefinition, { RichText } from "./widgets/RichText";
+import BadgeDefinition, { Badge } from "./widgets/Badge";
 
 export enum WidgetType {
   Card = "Card",
@@ -20,6 +21,7 @@ export enum WidgetType {
   LineChart = "LineChart",
   RichText = "RichText",
   Table = "Table",
+  Badge = "Badge",
 }
 
 export type AnyWidget =
@@ -29,7 +31,8 @@ export type AnyWidget =
   | BarChart
   | Title
   | Table
-  | RichText;
+  | RichText
+  | Badge;
 
 export function renderWidget(
   widget: AnyWidget,
@@ -70,6 +73,9 @@ export function renderWidget(
     return (
       <RichTextDefinition.widget key={nanoid()} {...richText} data={data} />
     );
+  } else if (widgetType == WidgetType.Badge) {
+    const badge = widget as Badge;
+    return <BadgeDefinition.widget key={nanoid()} {...badge} data={data} />;
   } else {
     return null;
   }
@@ -84,7 +90,8 @@ export const widgetValidation = Joi.alternatives()
     BarChartDefinition.validator,
     TableDefinition.validator,
     CardDefinition.validator,
-    RichTextDefinition.validator
+    RichTextDefinition.validator,
+    BadgeDefinition.validator
   )
   .id("widget");
 
