@@ -10,13 +10,16 @@ RUN apk add --no-cache \
     ttf-freefont \
     dumb-init
 
+ARG SLACK_ACCESS_TOKEN
+
 ENV NODE_ENV=production
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV GOOGLE_CHROME_BIN=/usr/bin/chromium-browser
 ENV BOARD_URL=file:///usr/app/dist/index.html
 
-WORKDIR /usr/app
+ENV SLACK_ACCESS_TOKEN=$SLACK_ACCESS_TOKEN
 
+WORKDIR /usr/app
 
 RUN chmod -R 777 /tmp
 COPY ./server/package*.json ./
@@ -29,7 +32,6 @@ COPY ./board/dist /usr/app/dist
 EXPOSE 8611
 
 
-ENV SLACK_ACCESS_TOKEN $SLACK_ACCESS_TOKEN
 
 
 CMD [ "dumb-init", "node", "/usr/app/src/index.js" ]
