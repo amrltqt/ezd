@@ -1,108 +1,39 @@
-import { useContext, useState } from "react";
-import { BoardContext } from "./BoardContext";
-
-import { boardValidator } from "./widgets";
+import WidgetEditor from "./debug/components/WidgetEditor";
+import DataEditor from "./debug/components/DataEditor";
+import SizeEditor from "./debug/components/SizeEditor";
+import { useContext, useEffect } from "react";
+import { BoardContext, BoardContextData } from "./BoardContext";
 
 export default function Debug({ board }: { board: React.ReactNode }) {
-  const context = useContext(BoardContext);
-
-  const savedData = localStorage.getItem("data");
-  const savedWidgets = localStorage.getItem("widgets");
-  const savedSize = localStorage.getItem("size");
-
-  const [data, setData] = useState(
-    savedData || JSON.stringify(context.data, null, 2)
-  );
-
-  const [widgets, setWidgets] = useState(
-    savedWidgets || JSON.stringify(context.widgets, null, 2)
-  );
-
-  const [size, setSize] = useState(savedSize || context.size);
-
-  function handleDataChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setData(e.target.value);
-
-    try {
-      const data = JSON.parse(e.target.value);
-      context.setData(data);
-      localStorage.setItem("data", JSON.stringify(data, null, 2));
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  function handleSizeChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = parseInt(e.target.value, 10);
-    if (isNaN(value)) {
-      return;
+  const { setData, setSize, setWidgets } =
+    useContext<BoardContextData>(BoardContext);
+  useEffect(() => {
+    const savedData = localStorage.getItem("data");
+    if (savedData) {
+      setData(JSON.parse(savedData));
     }
 
-    if (value < 1) {
-      return;
+    const savedWidgets = localStorage.getItem("widgets");
+    if (savedWidgets) {
+      setWidgets(JSON.parse(savedWidgets));
     }
 
-    setSize(value);
-    context.setSize(value);
-    localStorage.setItem("size", value.toString());
-  }
-
-  function handleWidgetsChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setWidgets(e.target.value);
-
-    try {
-      const widgets = JSON.parse(e.target.value);
-      const validation = boardValidator.validate(widgets);
-      if (validation.error) {
-        console.error(validation.error.details);
-        return;
-      } else {
-        console.log(validation.value);
-        context.setWidgets(validation.value);
-        localStorage.setItem(
-          "widgets",
-          JSON.stringify(validation.value, null, 2)
-        );
-      }
-    } catch (e) {
-      // do nothing
+    const savedSize = localStorage.getItem("size");
+    if (savedSize) {
+      setSize(parseInt(savedSize, 10));
     }
-  }
+  }, [setData, setWidgets, setSize]);
 
   return (
     <div className="flex h-screen">
-      <div className="flex flex-col w-1/2">
-        <div className="mx-auto border-dashed border-1 w-fit">{board}</div>
-      </div>
-      <div className="flex flex-col w-1/2 h-full">
-        <div className="">
-          <label htmlFor="size">Size</label>
-          <input
-            className="w-full p-2 border"
-            type="number"
-            value={size}
-            onChange={handleSizeChange}
-          />
+      <div className="grid flex-1 h-full gap-4 p-4 overflow-auto md:grid-cols-2 lg:grid-cols-3">
+        <div className="relative flex flex-col items-start h-full gap-8 md:flex">
+          <SizeEditor />
+          <DataEditor />
+          <WidgetEditor />
         </div>
-        <div className="flex-1">
-          <label htmlFor="data">Data</label>
-          <textarea
-            id="data"
-            className="w-full p-2 font-mono border h-1/2"
-            placeholder="Data"
-            value={data}
-            onChange={handleDataChange}
-          />
-        </div>
-        <div className="flex-1">
-          <label htmlFor="widgets">Widgets</label>
-          <textarea
-            id="widgets"
-            className="w-full p-2 font-mono border h-1/2"
-            placeholder="Widgets"
-            value={widgets}
-            onChange={handleWidgetsChange}
-          />
+        <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
+          <div className="mx-auto border-dashed border-1 w-fit">{board}</div>
         </div>
       </div>
     </div>
