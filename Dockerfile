@@ -15,8 +15,8 @@ ARG SLACK_ACCESS_TOKEN
 ENV NODE_ENV=production
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV GOOGLE_CHROME_BIN=/usr/bin/chromium-browser
-ENV BOARD_URL=file:///usr/app/dist/index.html
-
+ENV BOARD_URL=/usr/app/boards/index.html
+ENV DEBUG_BOARD_URL=/usr/app/boards/debug.html
 ENV SLACK_ACCESS_TOKEN=$SLACK_ACCESS_TOKEN
 
 WORKDIR /usr/app
@@ -27,9 +27,11 @@ COPY ./server/package*.json ./
 RUN npm ci --omit=dev
 COPY ./server/dist /usr/app/src
 
-COPY ./board/dist /usr/app/dist
+COPY ./server/boards /usr/app/boards
 
 EXPOSE 8611
+
+
 
 
 

@@ -23,6 +23,19 @@ const processor = new LocalTaskProcessor(
   ])
 );
 
+const DEBUG_BOARD_URL = process.env.DEBUG_BOARD_URL || null;
+
+app.get("/", (req, res) => {
+  if (!DEBUG_BOARD_URL) {
+    // return 404
+    res.status(404).send("Not found - build the debug board first");
+    return;
+  }
+  console.log("DEBUG_BOARD_URL", DEBUG_BOARD_URL);
+  // send html file generated in debug mode
+  res.sendFile(DEBUG_BOARD_URL);
+});
+
 app.post("/screenshot", async (req, res) => {
   const { widgets, data, targets, size } = req.body;
 

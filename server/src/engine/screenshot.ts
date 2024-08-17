@@ -50,7 +50,7 @@ export async function generate(task: Task): Promise<ImagePath> {
     }
   );
 
-  await page.goto(BOARD_URL, {
+  await page.goto("file://" + BOARD_URL, {
     waitUntil: "networkidle0",
   });
   try {
