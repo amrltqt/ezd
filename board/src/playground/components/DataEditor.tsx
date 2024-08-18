@@ -1,5 +1,8 @@
+import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { BoardContext, BoardContextData } from "../../BoardContext";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 export default function DataEditor() {
   const context = useContext<BoardContextData>(BoardContext);
@@ -24,10 +27,9 @@ export default function DataEditor() {
 
   return (
     <div className="w-full">
-      <label htmlFor="data">Data</label>
-      <textarea
+      <Label htmlFor="data">Data</Label>
+      <Textarea
         id="data"
-        className="w-full p-2 font-mono border h-1/2"
         placeholder="Data"
         value={data}
         onChange={handleDataChange}

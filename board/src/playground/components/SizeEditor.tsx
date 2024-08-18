@@ -1,5 +1,9 @@
+import React from "react";
+
 import { useContext, useEffect, useState } from "react";
 import { BoardContext, BoardContextData } from "../../BoardContext";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function SizeEditor() {
   const context = useContext<BoardContextData>(BoardContext);
@@ -27,10 +31,11 @@ export default function SizeEditor() {
 
   return (
     <div className="w-full">
-      <label htmlFor="size">Size</label>
-      <input
-        className="w-full p-2 border"
+      <Label htmlFor="size">Size</Label>
+      <Input
+        id="size"
         type="number"
+        placeholder="Email"
         value={size}
         onChange={handleSizeChange}
       />

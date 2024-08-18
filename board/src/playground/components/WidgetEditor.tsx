@@ -1,6 +1,10 @@
+import React from "react";
+
 import { useContext, useEffect, useState } from "react";
 import { boardValidator } from "../../widgets";
 import { BoardContext, BoardContextData } from "../../BoardContext";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function WidgetEditor() {
   const context = useContext<BoardContextData>(BoardContext);
@@ -34,11 +38,11 @@ export default function WidgetEditor() {
   }
 
   return (
-    <div className="w-full" key="widget-editor">
-      <label htmlFor="widgets">Widgets</label>
-      <textarea
+    <div className="w-full h-full" key="widget-editor">
+      <Label htmlFor="widgets">Widgets</Label>
+      <Textarea
         id="widgets"
-        className="w-full p-2 font-mono border"
+        className="w-full h-full p-2 font-mono border"
         placeholder="Widgets"
         value={widgets}
         onChange={handleWidgetsChange}
