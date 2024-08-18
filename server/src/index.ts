@@ -23,17 +23,17 @@ const processor = new LocalTaskProcessor(
   ])
 );
 
-const DEBUG_BOARD_URL = process.env.DEBUG_BOARD_URL || null;
+const PLAYGROUND_BOARD_URL = process.env.PLAYGROUND_BOARD_URL || null;
 
 app.get("/", (req, res) => {
-  if (!DEBUG_BOARD_URL) {
+  if (!PLAYGROUND_BOARD_URL) {
     // return 404
-    res.status(404).send("Not found - build the debug board first");
+    res.status(404).send("Not found - build the PLAYGROUND board first");
     return;
   }
-  console.log("DEBUG_BOARD_URL", DEBUG_BOARD_URL);
-  // send html file generated in debug mode
-  res.sendFile(DEBUG_BOARD_URL);
+  console.log("PLAYGROUND_BOARD_URL", PLAYGROUND_BOARD_URL);
+  // send html file generated in PLAYGROUND mode
+  res.sendFile(PLAYGROUND_BOARD_URL);
 });
 
 app.post("/screenshot", async (req, res) => {

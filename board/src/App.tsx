@@ -1,6 +1,6 @@
 import "./index.css";
 import Board from "./Board";
-import Debug from "./Debug";
+import Playground from "./playground/Playground";
 import { BoardContext } from "./BoardContext";
 import { useState } from "react";
 import { AnyWidget } from "./widgets";
@@ -14,13 +14,13 @@ declare global {
   }
 }
 
-const debug = import.meta.env.VITE_DEBUG_PANEL === "true" || false;
+const playground = import.meta.env.VITE_PLAYGROUND_PANEL === "true" || false;
 
 function App() {
   const [data, setData] = useState(window.data || {});
   const [widgets, setWidgets] = useState(window.widgets || []);
   const [size, setSize] = useState(window.size || 500);
-
+  console.log(playground, import.meta.env);
   return (
     <BoardContext.Provider
       value={{
@@ -32,14 +32,14 @@ function App() {
         setSize,
       }}
     >
-      {debug && (
-        <Debug
+      {playground && (
+        <Playground
           board={
             <Board widgets={widgets as AnyWidget[]} data={data} size={size} />
           }
         />
       )}
-      {!debug && (
+      {!playground && (
         <Board widgets={widgets as AnyWidget[]} data={data} size={size} />
       )}
     </BoardContext.Provider>

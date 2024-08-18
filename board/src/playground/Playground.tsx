@@ -1,10 +1,10 @@
-import WidgetEditor from "./debug/components/WidgetEditor";
-import DataEditor from "./debug/components/DataEditor";
-import SizeEditor from "./debug/components/SizeEditor";
+import WidgetEditor from "./components/WidgetEditor";
+import DataEditor from "./components/DataEditor";
+import SizeEditor from "./components/SizeEditor";
 import { useContext, useEffect } from "react";
-import { BoardContext, BoardContextData } from "./BoardContext";
+import { BoardContext, BoardContextData } from "../BoardContext";
 
-export default function Debug({ board }: { board: React.ReactNode }) {
+export default function Playground({ board }: { board: React.ReactNode }) {
   const { setData, setSize, setWidgets } =
     useContext<BoardContextData>(BoardContext);
   useEffect(() => {
@@ -28,6 +28,7 @@ export default function Debug({ board }: { board: React.ReactNode }) {
     <div className="flex h-screen">
       <div className="grid flex-1 h-full gap-4 p-4 overflow-auto md:grid-cols-2 lg:grid-cols-3">
         <div className="relative flex flex-col items-start h-full gap-8 md:flex">
+          <h1 className="text-2xl font-bold">Playground</h1>
           <SizeEditor />
           <DataEditor />
           <WidgetEditor />
