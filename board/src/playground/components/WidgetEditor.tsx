@@ -38,12 +38,12 @@ export default function WidgetEditor() {
   }
 
   return (
-    <div className="w-full h-full" key="widget-editor">
+    <div className="grid gap-3">
       <Label htmlFor="widgets">Widgets</Label>
       <Textarea
         id="widgets"
-        className="w-full h-full p-2 font-mono border"
         placeholder="Widgets"
+        className="min-h-[9.5rem]"
         value={widgets}
         onChange={handleWidgetsChange}
       />

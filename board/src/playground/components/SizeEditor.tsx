@@ -30,7 +30,7 @@ export default function SizeEditor() {
   }
 
   return (
-    <div className="w-full">
+    <div className="grid gap-3">
       <Label htmlFor="size">Size</Label>
       <Input
         id="size"

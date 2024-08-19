@@ -26,11 +26,13 @@ export default function DataEditor() {
   }
 
   return (
-    <div className="w-full">
+    <div className="grid gap-3">
       <Label htmlFor="data">Data</Label>
       <Textarea
         id="data"
         placeholder="Data"
+        className="min-h-[9.5rem]"
+
         value={data}
         onChange={handleDataChange}
       />
