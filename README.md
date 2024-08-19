@@ -30,7 +30,7 @@ Building the app create a single index.html bundle that can be served by a web s
 
 ```bash
 cd board
-VITE_DEBUG_PANEL=false npm run build
+VITE_PLAYGROUND_PANEL=false npm run build
 ```
 
 ### Configure Slack

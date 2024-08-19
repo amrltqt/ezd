@@ -16,7 +16,7 @@ ENV NODE_ENV=production
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV GOOGLE_CHROME_BIN=/usr/bin/chromium-browser
 ENV BOARD_URL=/usr/app/boards/index.html
-ENV DEBUG_BOARD_URL=/usr/app/boards/debug.html
+ENV PLAYGROUND_BOARD_URL=/usr/app/boards/playground.html
 ENV SLACK_ACCESS_TOKEN=$SLACK_ACCESS_TOKEN
 
 WORKDIR /usr/app
