@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { boardValidator } from "../../widgets";
 import { BoardContext, BoardContextData } from "../../BoardContext";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { JSONEditor } from "@/components/custom/json_editor";
 
 export default function WidgetEditor() {
   const context = useContext<BoardContextData>(BoardContext);
@@ -40,10 +40,10 @@ export default function WidgetEditor() {
   return (
     <div className="grid gap-3">
       <Label htmlFor="widgets">Widgets</Label>
-      <Textarea
+      <JSONEditor
         id="widgets"
         placeholder="Widgets"
-        className="min-h-[9.5rem]"
+        className="min-h-[9.5rem] font-mono text-xs"
         value={widgets}
         onChange={handleWidgetsChange}
       />

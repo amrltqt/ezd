@@ -1,8 +1,8 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { BoardContext, BoardContextData } from "../../BoardContext";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { JSONEditor } from "@/components/custom/json_editor";
 
 export default function DataEditor() {
   const context = useContext<BoardContextData>(BoardContext);
@@ -28,10 +28,10 @@ export default function DataEditor() {
   return (
     <div className="grid gap-3">
       <Label htmlFor="data">Data</Label>
-      <Textarea
+      <JSONEditor
         id="data"
         placeholder="Data"
-        className="min-h-[9.5rem]"
+        className="min-h-[9.5rem] font-mono text-xs"
 
         value={data}
         onChange={handleDataChange}
