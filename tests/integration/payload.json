@@ -1,0 +1,89 @@
+{
+  "size": 400,
+  "data": {
+    "sales": "1929 $",
+    "sales_over_month": [
+      {
+        "month": "January",
+        "sales": 2343
+      },
+      {
+        "month": "February",
+        "sales": 1323
+      },
+      {
+        "month": "March",
+        "sales": 1543
+      },
+      {
+        "month": "April",
+        "sales": 2102
+      },
+      {
+        "month": "May",
+        "sales": 1929
+      }
+    ]
+  },
+  "widgets": [
+    {
+      "type": "Title",
+      "main": "Sales",
+      "secondary": "2021",
+      "align": "horizontal"
+    },
+    {
+      "type": "Container",
+      "direction": "horizontal",
+      "widgets": [
+        {
+          "type": "Card",
+          "value": {
+            "type": "ref",
+            "key": "sales"
+          },
+          "align": "left",
+          "label": "Sales",
+          "evolution": "+ 12%",
+          "from": "last month"
+        },
+        {
+          "type": "Card",
+          "value": "1929 $",
+          "align": "left",
+          "label": "Sales",
+          "evolution": "+ 12%",
+          "from": "last month"
+        }
+      ]
+    },
+    {
+      "type": "LineChart",
+      "title": "Sales",
+      "dataset": {
+        "type": "ref",
+        "key": "sales_over_month"
+      },
+      "xaxis": "month",
+      "yaxis": [
+        {
+          "name": "sales",
+          "color": "#ff0d0d"
+        }
+      ]
+    },
+    {
+      "type": "Badge",
+      "color": "green",
+      "label": "Hello world"
+    }
+  ],
+  "targets": [
+    {
+      "type": "slack-channel",
+      "id": "C05D8RSUKSQ",
+      "comment": "Report of the day",
+      "filename": "report.png"
+    }
+  ]
+}

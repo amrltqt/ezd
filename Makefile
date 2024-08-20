@@ -27,3 +27,6 @@ dev-server:
 
 
 	npm --prefix ./server start
+
+integration-tests:
+	bash -v ./tests/integration/test.sh

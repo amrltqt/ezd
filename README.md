@@ -24,6 +24,14 @@ docker run -p 8611:8611 amrltqt/ezd:latest
 
 ## Development
 
+### Development dependencies
+
+- Nodejs
+- Npm
+- Docker
+- Make
+- jq
+
 ### Build the app
 
 Building the app create a single index.html bundle that can be served by a web server.
@@ -38,4 +46,10 @@ VITE_PLAYGROUND_PANEL=false npm run build
 ```shell
 SLACK_ACCESS_TOKEN=xoxb-xxxx-xxxx-xxxx
 docker run -p 8611:8611 -e SLACK_ACCESS_TOKEN=$SLACK_ACCESS_TOKEN amrltqt/ezd:latest
+```
+
+## Integration tests
+
+```shell
+make integration-tests
 ```
