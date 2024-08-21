@@ -31,9 +31,12 @@ app.get("/", (req, res) => {
     res.status(404).send("Not found - build the PLAYGROUND board first");
     return;
   }
-  console.log("PLAYGROUND_BOARD_URL", PLAYGROUND_BOARD_URL);
   // send html file generated in PLAYGROUND mode
   res.sendFile(PLAYGROUND_BOARD_URL);
+});
+
+app.get("/status", (req, res) => {
+  res.send(JSON.stringify({ status: "ok" }));
 });
 
 app.post("/screenshot", async (req, res) => {

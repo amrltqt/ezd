@@ -11,6 +11,7 @@ RUN apk add --no-cache \
     dumb-init
 
 ARG SLACK_ACCESS_TOKEN
+ARG BOARDS_PATH=./server/boards
 
 ENV NODE_ENV=production
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
@@ -27,13 +28,9 @@ COPY ./server/package*.json ./
 RUN npm ci --omit=dev
 COPY ./server/dist /usr/app/src
 
-COPY ./server/boards /usr/app/boards
+COPY ${BOARDS_PATH} /usr/app/boards
 
 EXPOSE 8611
-
-
-
-
 
 
 CMD [ "dumb-init", "node", "/usr/app/src/index.js" ]
