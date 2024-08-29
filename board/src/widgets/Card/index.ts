@@ -13,7 +13,7 @@ export const cardValidator = Joi.object({
   label: Joi.string().required(),
   value: variableValidator.required(),
   align: Joi.string().valid("right", "left", "center").required(),
-  from: variableValidator,
+  reference: variableValidator,
   evolution: variableValidator,
 });
 
@@ -21,7 +21,7 @@ export interface Card extends Widget {
   value: string | number | Reference;
   label: string;
   align: "left" | "right" | "center";
-  from?: string;
+  reference?: string;
   evolution?: string;
 }
 

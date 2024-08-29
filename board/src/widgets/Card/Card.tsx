@@ -43,7 +43,7 @@ export const CardWidget = ({
   value,
   label,
   align,
-  from,
+  reference,
   evolution,
   data,
 }: Card) => {
@@ -84,7 +84,7 @@ export const CardWidget = ({
             value={resolveString(evolution, data).toString()}
             reverseEvolutionColor={true}
           />
-          {from && <>from {from}</>}
+          {reference && <>from {reference}</>}
         </div>
       )}
     </div>

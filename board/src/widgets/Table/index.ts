@@ -4,7 +4,7 @@ import TableWidget from "./Table";
 
 export interface Table extends Widget {
   values: Dataset;
-  selectedColumns: string[];
+  columns: string[];
   showHeaders: boolean;
   title: string;
 }
@@ -12,7 +12,7 @@ export interface Table extends Widget {
 const tableValidator = Joi.object({
   type: Joi.string().valid("Table").required(),
   values: Joi.object().required(),
-  selectedColumns: Joi.array().items(Joi.string()).required(),
+  columns: Joi.array().items(Joi.string()).required(),
   showHeaders: Joi.boolean().required(),
   title: Joi.string().required(),
 });

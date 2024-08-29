@@ -19,7 +19,7 @@ function Header({ children }: { children: string }) {
 
 export default function TableWidget({
   values,
-  selectedColumns,
+  columns,
   showHeaders = false,
   title = "Top sellers",
   data,
@@ -28,9 +28,9 @@ export default function TableWidget({
   const headers = Object.keys(resolvedDataset[0]);
 
   function filterColumns(item: string) {
-    if (!selectedColumns || !Array.isArray(selectedColumns)) return item;
+    if (!columns || !Array.isArray(columns)) return item;
     else {
-      return selectedColumns.includes(item);
+      return columns.includes(item);
     }
   }
 

@@ -45,7 +45,7 @@
           "align": "left",
           "label": "Sales",
           "evolution": "+ 12%",
-          "from": "last month"
+          "reference": "last month"
         },
         {
           "type": "Card",
@@ -53,7 +53,7 @@
           "align": "left",
           "label": "Sales",
           "evolution": "+ 12%",
-          "from": "last month"
+          "reference": "last month"
         }
       ]
     },
