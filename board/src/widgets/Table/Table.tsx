@@ -18,13 +18,13 @@ function Header({ children }: { children: string }) {
 }
 
 export default function TableWidget({
-  values,
+  dataset,
   columns,
   showHeaders = false,
   title = "Top sellers",
   data,
 }: Table) {
-  const resolvedDataset = resolveDataset(values, data);
+  const resolvedDataset = resolveDataset(dataset, data);
   const headers = Object.keys(resolvedDataset[0]);
 
   function filterColumns(item: string) {

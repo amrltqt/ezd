@@ -5,7 +5,7 @@ from ezd.core import Widget, Dataset
 
 class Table(Widget):
     type: Literal["Table"] = "Table"
-    values: Dataset
+    dataset: Dataset
     columns: list[str] | None = None
     title: str | None = None
     show_header: bool = True

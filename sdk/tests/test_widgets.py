@@ -28,15 +28,7 @@ def test_create_widgets():
                 Card(value=3, label="Card 3"),
             ]
         ),
-        Badge(value=4, label="Badge 1"),
-        Table(
-            title="Bar Chart",
-            values=Reference(key="bar_chart_values"), 
-            xaxis="x",
-            yaxis=[
-                YAxis(name="y", color="#0000FF"),
-            ],
-        ),
+        Badge(label="Badge 1", color="green"),
         LineChart(
             title="Line Chart",
             dataset=Reference(key="line_chart_values"), 
@@ -55,6 +47,12 @@ def test_create_widgets():
         ),
         RichText(
             text="#Rich Text\nThis is a rich text widget",
+        ),
+        Table(
+            title="Table",
+            dataset=Reference(key="table_values"),
+            columns=["month", "sales"],
+            show_header=True,
         )
     ]
 
@@ -64,10 +62,10 @@ def test_create_widgets():
         card1,
         container,
         badge,
-        table,
         line_chart,
         bar_chart,
-        rich_text
+        rich_text,
+        table
     ) = widgets
 
     assert title.main == "Main Title"
@@ -83,3 +81,30 @@ def test_create_widgets():
 
     assert widget_in_container.value == 2
     assert widget_in_container.label == "Card 2"
+
+    assert badge.label == "Badge 1"
+    assert badge.color == "green"
+
+    assert line_chart.title == "Line Chart"
+    assert line_chart.dataset.key == "line_chart_values"
+    assert line_chart.xaxis == "x"
+    assert len(line_chart.yaxis) == 1
+    assert line_chart.yaxis[0].name == "y"
+    assert line_chart.yaxis[0].color == "#0000FF"
+
+    assert bar_chart.title == "Bar Chart"
+    assert bar_chart.dataset.key == "bar_chart_values"
+    assert bar_chart.xaxis == "x"
+    assert len(bar_chart.yaxis) == 1
+    assert bar_chart.yaxis[0].name == "y"
+    assert bar_chart.yaxis[0].color == "#0000FF"
+
+    assert rich_text.text == "#Rich Text\nThis is a rich text widget"
+
+    assert table.title == "Table"
+    assert table.dataset.key == "table_values"
+    assert table.columns == ["month", "sales"]
+    assert table.show_header == True
+    
+
+
