@@ -4,15 +4,7 @@ EZD stands for Easy Dashboard. It is a software that produce dashboard images th
 
 ## How it works
 
-The board contains a react app that used to render dashboard.
-
-A server is used to require the rendering of dashboard thanks to puppeteer. The server is a nodejs server that uses express to handle requests.
-
-Each rendering request is pushed to a local queue and processed by as soon as possible by pupeteer.
-
-The image is stored in a local file and the path is returned to the client.
-
-The client can then download the image to the target location. (Slack, Email, etc.)
+It's a web server that accept a rendering request with all the required information to produce a dashboard image. The server will render the dashboard and distribute the image to the configured channels.
 
 ## Installation
 
@@ -22,33 +14,18 @@ The client can then download the image to the target location. (Slack, Email, et
 docker run -p 8611:8611 amrltqt/ezd:latest
 ```
 
-## Development
-
-### Development dependencies
-
-- Nodejs
-- Npm
-- Docker
-- Make
-- jq
-
-### Build the app
-
-Building the app create a single index.html bundle that can be served by a web server.
-
-```bash
-cd board
-VITE_PLAYGROUND_PANEL=false npm run build
-```
-
-### Configure Slack
+If you want to use the Slack integration, you need to provide a Slack access token.
 
 ```shell
 SLACK_ACCESS_TOKEN=xoxb-xxxx-xxxx-xxxx
 docker run -p 8611:8611 -e SLACK_ACCESS_TOKEN=$SLACK_ACCESS_TOKEN amrltqt/ezd:latest
 ```
 
-## Integration tests
+## Contribute
+
+### Integration tests
+
+The integration tests is the easiest way to start developing on ezd. It will start the server and run some tests against it.
 
 ```shell
 make integration-tests
