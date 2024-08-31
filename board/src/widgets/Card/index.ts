@@ -9,7 +9,7 @@ export enum CardDisplayPosition {
 }
 
 export const cardValidator = Joi.object({
-  type: Joi.string().valid("Card").required(),
+  type: Joi.string().valid("card").required(),
   label: Joi.string().required(),
   value: variableValidator.required(),
   align: Joi.string().valid("right", "left", "center").required(),

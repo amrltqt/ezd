@@ -27,17 +27,17 @@
   },
   "widgets": [
     {
-      "type": "Title",
+      "type": "title",
       "main": "Sales",
       "secondary": "2021",
       "align": "horizontal"
     },
     {
-      "type": "Container",
+      "type": "container",
       "direction": "horizontal",
       "widgets": [
         {
-          "type": "Card",
+          "type": "card",
           "value": {
             "type": "ref",
             "key": "sales"
@@ -48,7 +48,7 @@
           "reference": "last month"
         },
         {
-          "type": "Card",
+          "type": "card",
           "value": "1929 $",
           "align": "left",
           "label": "Sales",
@@ -58,7 +58,7 @@
       ]
     },
     {
-      "type": "LineChart",
+      "type": "linechart",
       "title": "Sales",
       "dataset": {
         "type": "ref",
@@ -73,7 +73,7 @@
       ]
     },
     {
-      "type": "Badge",
+      "type": "badge",
       "color": "green",
       "label": "Hello world"
     }

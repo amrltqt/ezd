@@ -1,0 +1,7 @@
+services:
+  ezd:
+    image: amrltqt/ezd:latest
+    ports:
+      - "8611:8611"
+    environment:
+      - SLACK_ACCESS_TOKEN=${SLACK_ACCESS_TOKEN}"

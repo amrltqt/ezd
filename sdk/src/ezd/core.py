@@ -24,3 +24,7 @@ class Widget(BaseModel):
     type: str
 
 type Variable = Union[str, int, float, Reference]
+
+
+class DistributionTarget(BaseModel):
+    type: str

@@ -32,7 +32,7 @@ export async function generate(task: Task): Promise<ImagePath> {
 
   const page = await browser.newPage();
   page.on("console", (msg) =>
-    logger.info("Message catched by console", {
+    logger.info("", {
       label: "puppeteer.console",
       message: msg.text(),
     })

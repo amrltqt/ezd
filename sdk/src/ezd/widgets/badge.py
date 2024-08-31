@@ -3,7 +3,7 @@ from typing import Literal, Union
 from ezd.core import Widget, Variable
 
 class Badge(Widget):
-    type: Literal["Badge"] = "Badge"
+    type: Literal["badge"] = "badge"
     label: Variable
     color: Union[
         Literal["gray"],

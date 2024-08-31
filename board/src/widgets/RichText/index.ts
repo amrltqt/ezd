@@ -7,7 +7,7 @@ export interface RichText extends Widget {
 }
 
 const richTextValidator = Joi.object({
-  type: Joi.string().valid("RichText").required(),
+  type: Joi.string().valid("richtext").required(),
   text: Joi.string().required(),
 });
 

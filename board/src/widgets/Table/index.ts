@@ -10,7 +10,7 @@ export interface Table extends Widget {
 }
 
 const tableValidator = Joi.object({
-  type: Joi.string().valid("Table").required(),
+  type: Joi.string().valid("table").required(),
   dataset: Joi.object().required(),
   columns: Joi.array().items(Joi.string()).required(),
   showHeaders: Joi.boolean().required(),

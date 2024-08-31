@@ -25,8 +25,7 @@ dev-server:
 	VITE_PLAYGROUND_PANEL=false npm --prefix ./board run build
 	mv ./board/dist/index.html ./server/boards/index.html
 
-
 	npm --prefix ./server start
 
 integration-tests:
-	bash -v ./tests/integration/test.sh
+	bash ./tests/integration/test.sh

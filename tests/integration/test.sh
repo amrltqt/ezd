@@ -46,11 +46,7 @@ response=$(curl -s -X POST -H "Content-Type: application/json" \
 
 echo "Response: $response"
 
-echo "Stop and remove the docker container"
-docker kill $test_id
-docker image rm -f amrltqt/ezd:$test_id
-
-echo "Test the response"
+echo "Test the status response"
 if [ "$(echo $response | jq 'has("id")')" == "true" ]; then
     echo "Integration tests passed"
 else
@@ -59,3 +55,20 @@ else
     exit 1
 fi
 
+echo "Waiting for log with 'queue.process.distributed'..."
+while true; do
+    logs=$(docker logs $test_id 2>&1 | grep "queue.process.distributed")
+    echo $logs | jq '.task_id'
+    if [[ -n $logs ]]; then
+        echo "Log found:"
+        echo "$logs"
+        break
+    fi
+    sleep 1
+done
+
+
+echo "Stop and remove the docker container"
+docker kill $test_id
+docker rm $test_id
+docker image rm -f amrltqt/ezd:$test_id

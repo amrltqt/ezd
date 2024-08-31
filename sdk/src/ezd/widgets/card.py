@@ -6,7 +6,7 @@ class Card(Widget):
     """
     Card widget
     """
-    type: Literal["Card"] = "Card"
+    type: Literal["card"] = "card"
     label: str
     value: Variable
     align: Optional[Literal["left", "center", "right"]] = "left"

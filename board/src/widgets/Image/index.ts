@@ -9,7 +9,7 @@ export interface Image extends Widget {
 }
 
 const imageValidator = Joi.object({
-  type: Joi.string().valid("Image").required(),
+  type: Joi.string().valid("image").required(),
   url: variableValidator.required(),
 });
 
