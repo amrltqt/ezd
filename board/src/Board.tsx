@@ -9,7 +9,6 @@ export interface BoardProps {
 
 export default function Board({ widgets, data, size }: BoardProps) {
   const tree = widgets.map((def) => renderWidget(def, data));
-  console.log(JSON.stringify(tree));
   return (
     <div
       id="canvas"

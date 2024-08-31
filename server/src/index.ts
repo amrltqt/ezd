@@ -5,7 +5,7 @@ dotenv.config();
 
 import { LocalTaskProcessor } from "./queue";
 import { logger } from "./logger";
-import { ImageGenerator } from "./engine/screenshot";
+import { ImageGenerator } from "./engine/render";
 import { MultiTargetDistributionEngine } from "./engine/distribution";
 import { SlackUserDistributionUnit } from "./distribution/slack/user";
 import { SlackChannelDistributionUnit } from "./distribution/slack/channel";
@@ -39,7 +39,7 @@ app.get("/status", (req, res) => {
   res.send(JSON.stringify({ status: "ok" }));
 });
 
-app.post("/screenshot", async (req, res) => {
+app.post("/render", async (req, res) => {
   const { widgets, data, targets, size } = req.body;
 
   if (!widgets || !data || !targets || !size) {

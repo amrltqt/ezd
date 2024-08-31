@@ -66,7 +66,7 @@ export class LocalTaskProcessor implements TaskProcessor {
       });
       const imagePath = await this.generationStrategy.generate(nextTask);
 
-      logger.info(`${nextTask.id} screenshot generated`, {
+      logger.info(`${nextTask.id} render generated`, {
         label: "queue.process.generated",
         task_id: nextTask.id,
       });
@@ -77,7 +77,7 @@ export class LocalTaskProcessor implements TaskProcessor {
           nextTask.targets[i]
         );
       }
-      logger.info(`${nextTask.id} screenshot distributed`, {
+      logger.info(`${nextTask.id} render distributed`, {
         label: "queue.process.distributed",
         task_id: nextTask.id,
       });

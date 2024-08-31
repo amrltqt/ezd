@@ -10,9 +10,10 @@ from ezd.widgets import (
     Title,
     RichText,
 )
-from ezd.widgets.container import Container
 
-type Root = list[Union[
+from ezd.widgets.common import SlackChannel, SlackUser
+
+type AllWidgets = Union[
     Card,
     Container,
     Badge,
@@ -21,4 +22,13 @@ type Root = list[Union[
     Table,
     Title,
     RichText
-]]
+]
+
+type AllWidgetList = list[AllWidgets]
+
+type AllTarget = Union[
+    SlackChannel,
+    SlackUser,
+]
+
+type AllTargetList = list[AllTarget]

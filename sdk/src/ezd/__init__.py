@@ -1,32 +1,24 @@
 import requests
-from typing import Union
 
-from pydantic import BaseModel
-
-from ezd.core import Widget
-from ezd.registration import Root
+from ezd.core import Widget, DistributionTarget
 
 
 class EZDClient:
     def __init__(self, base_url):
         self.base_url = base_url
 
-    def screenshot(
+    def render(
             self,
             widgets: list[Widget],
             width: int,
-            targets,
+            targets: list[DistributionTarget],
             data
         ):
 
-        # Pre-validate the input against the sdk schema
-        Root.validate(widgets)
-
-
-        endpoint = f"{self.base_url}/screenshot"
+        endpoint = f"{self.base_url}/render"
         response = requests.post(endpoint, json={
             "widgets": widgets,
-            "width": width,
+            "size": width,
             "targets": targets,
             "data": data
         })

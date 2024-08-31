@@ -42,7 +42,7 @@ done
 
 response=$(curl -s -X POST -H "Content-Type: application/json" \
     -d @./tests/integration/payload.json \
-    http://localhost:8611/screenshot)
+    http://localhost:8611/render)
 
 echo "Response: $response"
 

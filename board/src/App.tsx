@@ -25,11 +25,6 @@ function NoPlayground({
   data: { [key: string]: Dataset | string | number };
   size: number;
 }) {
-  console.log("No playground");
-  console.log("Widgets", JSON.stringify(widgets));
-  console.log("Data", JSON.stringify(data));
-  console.log("Size", JSON.stringify(size));
-
   return <Board widgets={widgets} data={data} size={size} />;
 }
 
