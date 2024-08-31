@@ -24,7 +24,7 @@ if (!BOARD_URL) {
 }
 
 export async function generate(task: Task): Promise<ImagePath> {
-  const screenshotPath = `/tmp/${task.id}.png`;
+  const renderPath = `/tmp/${task.id}.png`;
   const browser = await puppeteer.launch({
     executablePath: GOOGLE_CHROME_BIN,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
@@ -32,7 +32,7 @@ export async function generate(task: Task): Promise<ImagePath> {
 
   const page = await browser.newPage();
   page.on("console", (msg) =>
-    logger.info("Message catched by console", {
+    logger.info("", {
       label: "puppeteer.console",
       message: msg.text(),
     })
@@ -86,7 +86,7 @@ export async function generate(task: Task): Promise<ImagePath> {
     }
 
     await page.screenshot({
-      path: screenshotPath,
+      path: renderPath,
       clip: bb,
     });
   } catch (e) {
@@ -94,7 +94,7 @@ export async function generate(task: Task): Promise<ImagePath> {
   }
   await browser.close();
 
-  return screenshotPath;
+  return renderPath;
 }
 
 const ImageGenerator: DashboardEngine = {

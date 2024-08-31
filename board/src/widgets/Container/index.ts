@@ -15,7 +15,7 @@ export interface Container extends Widget {
 }
 
 const containerValidator = Joi.object({
-  type: Joi.string().valid("Container").required(),
+  type: Joi.string().valid("container").required(),
   widgets: Joi.array().items(Joi.link("#widget")).required(),
   direction: Joi.string().valid("horizontal", "vertical").required(),
 }).id("container");

@@ -16,11 +16,23 @@ declare global {
 
 const playground = import.meta.env.VITE_PLAYGROUND_PANEL === "true" || false;
 
+function NoPlayground({
+  widgets,
+  data,
+  size,
+}: {
+  widgets: AnyWidget[];
+  data: { [key: string]: Dataset | string | number };
+  size: number;
+}) {
+  return <Board widgets={widgets} data={data} size={size} />;
+}
+
 function App() {
   const [data, setData] = useState(window.data || {});
   const [widgets, setWidgets] = useState(window.widgets || []);
   const [size, setSize] = useState(window.size || 500);
-  console.log(playground, import.meta.env);
+
   return (
     <BoardContext.Provider
       value={{
@@ -40,7 +52,11 @@ function App() {
         />
       )}
       {!playground && (
-        <Board widgets={widgets as AnyWidget[]} data={data} size={size} />
+        <NoPlayground
+          widgets={widgets as AnyWidget[]}
+          data={data}
+          size={size}
+        />
       )}
     </BoardContext.Provider>
   );

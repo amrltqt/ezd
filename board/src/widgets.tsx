@@ -13,15 +13,15 @@ import RichTextDefinition, { RichText } from "./widgets/RichText";
 import BadgeDefinition, { Badge } from "./widgets/Badge";
 
 export enum WidgetType {
-  Card = "Card",
-  Container = "Container",
-  Title = "Title",
-  Image = "Image",
-  BarChart = "BarChart",
-  LineChart = "LineChart",
-  RichText = "RichText",
-  Table = "Table",
-  Badge = "Badge",
+  Card = "card",
+  Container = "container",
+  Title = "title",
+  Image = "image",
+  BarChart = "barchart",
+  LineChart = "linechart",
+  RichText = "richtext",
+  Table = "table",
+  Badge = "badge",
 }
 
 export type AnyWidget =

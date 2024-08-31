@@ -19,7 +19,7 @@ export enum BadgeColor {
 }
 
 const badgeValidator = Joi.object({
-  type: Joi.string().valid("Badge").required(),
+  type: Joi.string().valid("badge").required(),
   label: variableValidator.required(),
   color: Joi.alternatives()
     .try(

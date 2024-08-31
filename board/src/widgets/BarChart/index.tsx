@@ -24,7 +24,7 @@ const yAxisValidator = Joi.object({
 });
 
 const barChartValidator = Joi.object({
-  type: Joi.string().valid("BarChart").required(),
+  type: Joi.string().valid("barchart").required(),
   title: Joi.string().required(),
   dataset: datasetValidator.required(),
   xaxis: Joi.string().required(),

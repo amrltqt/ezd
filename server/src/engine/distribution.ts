@@ -3,6 +3,7 @@ import {
   DistributionTarget,
   DistributionUnit,
 } from "../definitions";
+import { logger } from "../logger";
 
 export class MultiTargetDistributionEngine implements DistributionEngine {
   private distributionUnits: DistributionUnit[];
@@ -17,7 +18,15 @@ export class MultiTargetDistributionEngine implements DistributionEngine {
   ): Promise<void> {
     for (let i = 0; i < this.distributionUnits.length; i++) {
       if (this.distributionUnits[i].shouldHandle(target)) {
-        await this.distributionUnits[i].distribute(filePath, target);
+        try {
+          await this.distributionUnits[i].distribute(filePath, target);
+        } catch (error) {
+          logger.error(`Failed to distribute to target`, {
+            target,
+            label: "distribution.failed",
+            error: error,
+          });
+        }
         return;
       }
     }

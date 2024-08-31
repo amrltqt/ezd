@@ -9,11 +9,11 @@ export enum CardDisplayPosition {
 }
 
 export const cardValidator = Joi.object({
-  type: Joi.string().valid("Card").required(),
+  type: Joi.string().valid("card").required(),
   label: Joi.string().required(),
   value: variableValidator.required(),
   align: Joi.string().valid("right", "left", "center").required(),
-  from: variableValidator,
+  reference: variableValidator,
   evolution: variableValidator,
 });
 
@@ -21,7 +21,7 @@ export interface Card extends Widget {
   value: string | number | Reference;
   label: string;
   align: "left" | "right" | "center";
-  from?: string;
+  reference?: string;
   evolution?: string;
 }
 

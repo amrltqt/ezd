@@ -37,12 +37,20 @@ export class SlackChannelDistributionUnit implements DistributionUnit {
   ): Promise<void> {
     const slackChannelTarget = target as SlackChannelTarget;
 
-    await this.client.files.uploadV2({
-      channel_id: slackChannelTarget.id,
-      file: filePath,
-      initial_comment: slackChannelTarget.comment,
-      filename: slackChannelTarget.filename,
-    });
+    try {
+      const response = await this.client.files.uploadV2({
+        channel_id: slackChannelTarget.id,
+        file: filePath,
+        initial_comment: slackChannelTarget.comment,
+        filename: slackChannelTarget.filename,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to upload file to Slack: ${response.error}`);
+      }
+    } catch (error) {
+      throw new Error(`Failed to upload file to Slack: ${error}`);
+    }
 
     return;
   }

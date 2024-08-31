@@ -16,7 +16,7 @@ export interface Title extends Widget {
 }
 
 const titleValidator = Joi.object({
-  type: Joi.string().valid("Title").required(),
+  type: Joi.string().valid("title").required(),
   main: variableValidator.required(),
   secondary: variableValidator,
   align: Joi.string().valid("horizontal", "vertical").required(),
