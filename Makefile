@@ -29,3 +29,8 @@ dev-server:
 
 integration-tests:
 	bash ./tests/integration/test.sh
+
+push-image:
+	docker push amrltqt/ezd:latest
+
+publish: integration-tests build push-image
