@@ -38,6 +38,7 @@ export function TreeActions() {
           {WIDGET_INFO.map((widget) => (
             <DialogTrigger key={widget.id} asChild>
               <Button
+                disabled={widget.propsEditor === undefined}
                 variant="ghost"
                 className="inline-flex justify-start gap-2"
                 onClick={() => {
