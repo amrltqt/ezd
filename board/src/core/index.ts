@@ -4,8 +4,9 @@ import { WidgetType } from "../widgets";
 import React from "react";
 
 export interface Widget {
+  name: string;
   type: WidgetType;
-  data: { [key: string]: Dataset | string | number };
+  data?: { [key: string]: Dataset | string | number };
 }
 
 export interface Row {
@@ -27,7 +28,7 @@ export const referenceValidator = Joi.object({
 });
 
 export const variableValidator = Joi.alternatives().try(
-  Joi.string(),
+  Joi.string().empty(""),
   Joi.number(),
   referenceValidator
 );

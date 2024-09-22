@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { referenceValidator, variableValidator, Widget } from "../../core";
 import BadgeWidget from "./Badge";
+import { TagIcon } from "lucide-react";
 
 export interface Badge extends Widget {
   label: string;
@@ -19,6 +20,7 @@ export enum BadgeColor {
 }
 
 const badgeValidator = Joi.object({
+  name: Joi.string().required(),
   type: Joi.string().valid("badge").required(),
   label: variableValidator.required(),
   color: Joi.alternatives()
@@ -39,6 +41,9 @@ const badgeValidator = Joi.object({
 });
 
 export default {
+  id: "badge",
+  name: "Badge",
   widget: BadgeWidget,
   validator: badgeValidator,
+  icon: TagIcon,
 };

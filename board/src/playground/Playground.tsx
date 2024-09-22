@@ -1,9 +1,8 @@
-import WidgetEditor from "./components/WidgetEditor";
 import DataEditor from "./components/DataEditor";
 import SizeEditor from "./components/SizeEditor";
 import { useContext, useEffect } from "react";
 import { BoardContext, BoardContextData } from "../BoardContext";
-
+import { TreeEditor } from "./TreeEditor";
 
 export default function Playground({ board }: { board: React.ReactNode }) {
   const { setData, setSize, setWidgets } =
@@ -35,10 +34,12 @@ export default function Playground({ board }: { board: React.ReactNode }) {
           <fieldset className="grid gap-6 p-4 border rounded-lg">
             <legend className="px-1 -ml-1 text-sm font-medium">Widgets</legend>
             <SizeEditor />
-            <WidgetEditor />
+            <TreeEditor />
           </fieldset>
           <fieldset className="grid gap-6 p-4 border rounded-lg">
-          <legend className="px-1 -ml-1 text-sm font-medium">Variables</legend>
+            <legend className="px-1 -ml-1 text-sm font-medium">
+              Variables
+            </legend>
             <DataEditor />
           </fieldset>
         </form>

@@ -4,6 +4,7 @@ import { WidgetType } from "../../widgets";
 import Joi from "joi";
 
 import { LineChartWidget } from "./LineChart";
+import { LineChartIcon } from "lucide-react";
 
 export interface YAxis {
   name: string;
@@ -24,6 +25,7 @@ const yAxisValidator = Joi.object({
 });
 
 const lineChartValidator = Joi.object({
+  name: Joi.string().required(),
   type: Joi.string().valid("linechart").required(),
   title: Joi.string().required(),
   dataset: datasetValidator.required(),
@@ -32,6 +34,9 @@ const lineChartValidator = Joi.object({
 });
 
 export default {
+  id: "linechart",
+  name: "Line Chart",
   widget: LineChartWidget,
   validator: lineChartValidator,
+  icon: LineChartIcon,
 };

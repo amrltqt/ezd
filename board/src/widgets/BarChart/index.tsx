@@ -4,6 +4,7 @@ import { WidgetType } from "../../widgets";
 import Joi from "joi";
 
 import { BarChartWidget } from "./BarChart";
+import { BarChart3Icon } from "lucide-react";
 
 export interface YAxis {
   name: string;
@@ -24,6 +25,7 @@ const yAxisValidator = Joi.object({
 });
 
 const barChartValidator = Joi.object({
+  name: Joi.string().required(),
   type: Joi.string().valid("barchart").required(),
   title: Joi.string().required(),
   dataset: datasetValidator.required(),
@@ -32,6 +34,9 @@ const barChartValidator = Joi.object({
 });
 
 export default {
+  id: "barchart",
+  name: "Bar Chart",
   widget: BarChartWidget,
   validator: barChartValidator,
+  icon: BarChart3Icon,
 };
