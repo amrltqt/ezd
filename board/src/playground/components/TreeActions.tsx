@@ -21,7 +21,10 @@ export function TreeActions() {
     icon: React.ForwardRefExoticComponent<
       Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
     >;
-    propsEditor: null;
+    propsEditor: null | React.ComponentType<{
+      insertWidget: typeof insertWidget;
+      setDialogOpen: (open: boolean) => void;
+    }>;
   } | null>(null);
 
   return (
