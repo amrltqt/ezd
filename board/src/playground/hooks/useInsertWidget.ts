@@ -1,11 +1,11 @@
 import { BoardContext } from "@/BoardContext";
-import { AnyWidget } from "@/widgets";
+import { Widget } from "@/core";
 import { useCallback, useContext } from "react";
 
 export default function useInsertWidget() {
   const { widgets, setWidgets } = useContext(BoardContext);
   const insertWidget = useCallback(
-    (widget: AnyWidget) => {
+    (widget: Widget) => {
       // Check if name of the widget is already present
       const existingWidget = widgets.find(
         (w) =>

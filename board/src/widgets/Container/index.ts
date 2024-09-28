@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { Widget } from "../../core";
-import { AnyWidget, WidgetType } from "../../widgets";
+import { WidgetType } from "../../widgets";
 import { ContainerWidget } from "./Container";
 import { ContainerIcon } from "lucide-react";
 import { PropsEditor } from "./playground/PropsEditor";
@@ -12,7 +12,7 @@ export enum ContainerDirection {
 
 export interface Container extends Widget {
   type: WidgetType.Container;
-  widgets: AnyWidget[];
+  widgets: Widget[];
   direction: ContainerDirection;
 }
 

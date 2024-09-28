@@ -54,12 +54,7 @@ export function PropsEditor({
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({
-      type: WidgetType.Container,
-      name: localName,
-      direction: localDirection,
-      widgets,
-    });
+
     const { value, error } = containerValidator.validate({
       type: WidgetType.Container,
       name: localName,

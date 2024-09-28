@@ -6,7 +6,7 @@ import React from "react";
 export interface Widget {
   name: string;
   type: WidgetType;
-  data?: { [key: string]: Dataset | string | number };
+  data: { [key: string]: Dataset | string | number };
 }
 
 export interface Row {

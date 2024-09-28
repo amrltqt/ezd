@@ -128,3 +128,8 @@ export const WIDGET_INFO = DEFINITIONS.map((definition) => ({
   icon: definition.icon,
   propsEditor: definition.propsEditor,
 }));
+
+export const WIDGET_INFO_BY_ID = DEFINITIONS.reduce(
+  (acc, definition) => ({ ...acc, [definition.id]: definition }),
+  {}
+);

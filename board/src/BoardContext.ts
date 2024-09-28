@@ -1,20 +1,19 @@
 import React from "react";
-import { AnyWidget } from "./widgets";
-import { Dataset } from "./core";
+import { Dataset, Widget } from "./core";
 
 export interface BoardContextData {
   size: number;
   data: { [key: string]: Dataset | string | number };
-  widgets: AnyWidget[];
+  widgets: Widget[];
   setData: (data: { [key: string]: Dataset | string | number }) => void;
-  setWidgets: (widgets: AnyWidget[]) => void;
+  setWidgets: (widgets: Widget[]) => void;
   setSize: (size: number) => void;
 }
 
 export const BoardContext = React.createContext<BoardContextData>({
   size: 500,
   data: {},
-  widgets: [] as AnyWidget[],
+  widgets: [] as Widget[],
   setData: () => {},
   setWidgets: () => [],
   setSize: () => 500,

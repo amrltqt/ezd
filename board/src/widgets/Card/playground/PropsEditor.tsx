@@ -18,7 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { AnyWidget, WidgetType } from "@/widgets";
-import { ReferenceField } from "./ReferenceField";
+import { ReferenceField } from "../../../playground/components/ReferenceField";
 
 interface ContainerEditorProps {
   name: string;
