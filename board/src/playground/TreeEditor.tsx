@@ -16,10 +16,12 @@ export function TreeEditor() {
 
   return (
     <div className="">
-      <div className="flex items-center justify-between py-1 space-x-2">
+      <div className="flex items-center py-1 space-x-2">
         <h2>Widget Tree</h2>
-        <TreeActions />
+        <div className="flex-grow" />
         <Switch checked={jsonMode} onCheckedChange={setJsonMode} />
+
+        <TreeActions />
       </div>
 
       {jsonMode && <WidgetEditor />}

@@ -10,7 +10,7 @@ import { WIDGET_INFO } from "@/widgets";
 import { Popover } from "@radix-ui/react-popover";
 import useInsertWidget from "../hooks/useInsertWidget";
 import { RefAttributes, useState } from "react";
-import { LucideProps } from "lucide-react";
+import { LucideProps, PlusIcon } from "lucide-react";
 
 export function TreeActions() {
   const insertWidget = useInsertWidget();
@@ -28,7 +28,9 @@ export function TreeActions() {
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="secondary">Add Widget</Button>
+          <Button size="sm" variant="ghost">
+            <PlusIcon className="w-4 h-4" />
+          </Button>
         </PopoverTrigger>
         <PopoverContent
           sideOffset={5}
