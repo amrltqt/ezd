@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-import { Dataset } from "./core";
+import { Dataset, Widget } from "./core";
 import CardDefinition, { Card } from "./widgets/Card";
 import ContainerDefinition, { Container } from "./widgets/Container";
 import TitleDefinition, { Title } from "./widgets/Title";
@@ -44,7 +44,7 @@ export type AnyWidget =
   | Badge;
 
 export function renderWidget(
-  widget: AnyWidget,
+  widget: Widget,
   data: { [key: string]: Dataset | string | number }
 ): JSX.Element | null {
   const widgetType = widget.type;
@@ -57,7 +57,7 @@ export function renderWidget(
         {...container}
         data={data}
       >
-        {(widget as Container).widgets.map((child: AnyWidget) =>
+        {(widget as Container).widgets.map((child: Widget) =>
           renderWidget(child, data)
         )}
       </ContainerDefinition.widget>
