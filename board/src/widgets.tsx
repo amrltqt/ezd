@@ -133,3 +133,13 @@ export const WIDGET_INFO_BY_ID = DEFINITIONS.reduce(
   (acc, definition) => ({ ...acc, [definition.id]: definition }),
   {}
 );
+
+export type RefOrStatic<T> =
+  | {
+      type: "ref";
+      key: string;
+    }
+  | {
+      type: "static";
+      value: T;
+    };

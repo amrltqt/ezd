@@ -17,25 +17,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { AnyWidget, WidgetType } from "@/widgets";
+import { AnyWidget, RefOrStatic, WidgetType } from "@/widgets";
 import { ReferenceField } from "../../../playground/components/ReferenceField";
 
 interface ContainerEditorProps {
   name: string;
-  value: {
-    type: "static" | "reference";
-    value: string;
-  };
+  value: RefOrStatic<string>;
   label: string;
   align: "left" | "right" | "center";
-  reference?: {
-    type: "static" | "reference";
-    value: string;
-  };
-  evolution?: {
-    type: "static" | "reference";
-    value: string;
-  };
+  reference?: RefOrStatic<string>;
+  evolution?: RefOrStatic<string>;
   direction: CardDisplayPosition;
   widgets: AnyWidget[];
   insertWidget: (container: Card) => { type: string; message: string };
@@ -64,19 +55,13 @@ export function PropsEditor({
   );
   const [localLabel, setLocalLabel] = useState(label || "");
   const [localAlign, setLocalAlign] = useState(align || "left");
-  const [localReference, setLocalReference] = useState<{
-    type: "static" | "reference";
-    value: string;
-  }>(
+  const [localReference, setLocalReference] = useState<RefOrStatic<string>>(
     reference || {
       type: "static",
       value: "",
     }
   );
-  const [localEvolution, setLocalEvolution] = useState<{
-    type: "static" | "reference";
-    value: string;
-  }>(
+  const [localEvolution, setLocalEvolution] = useState<RefOrStatic<string>>(
     evolution || {
       type: "static",
       value: "",
@@ -100,29 +85,17 @@ export function PropsEditor({
     const { value, error } = cardValidator.validate({
       type: WidgetType.Card,
       name: localName,
-      value:
-        localValue.type === "static"
-          ? localValue.value
-          : {
-              type: "ref",
-              key: localValue.value,
-            },
+      value: localValue.type === "static" ? localValue.value : localValue,
       label: localLabel,
       align: localAlign,
       reference:
         localReference.type === "static"
           ? localReference.value
-          : {
-              type: "ref",
-              key: localReference.value,
-            },
+          : localReference,
       evolution:
         localEvolution.type === "static"
           ? localEvolution.value
-          : {
-              type: "ref",
-              key: localEvolution.value,
-            },
+          : localEvolution,
     });
 
     console.log(value, error);

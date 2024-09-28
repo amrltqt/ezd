@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Badge, BadgeColor, badgeValidator } from "..";
-import { WidgetType } from "@/widgets";
+import { RefOrStatic, WidgetType } from "@/widgets";
 import { Button } from "@/components/ui/button";
 import { ReferenceField } from "@/playground/components/ReferenceField";
 import {
@@ -22,11 +22,8 @@ import {
 
 interface BadgeEditorProps {
   name: string;
-  label: {
-    type: "static" | "reference";
-    value: string;
-  };
-  color: string;
+  label: RefOrStatic<string>;
+  color: RefOrStatic<BadgeColor>;
   insertWidget: (container: Badge) => { type: string; message: string };
   setDialogOpen: (open: boolean) => void;
 }
@@ -51,23 +48,28 @@ export function PropsEditor({
   });
 
   const [localName, setLocalName] = useState(name || "");
-  const [localLabel, setLocalLabel] = useState<{
-    type: "static" | "reference";
-    value: string;
-  }>(
+  const [localLabel, setLocalLabel] = useState<RefOrStatic<string>>(
     label || {
-      type: "static",
+      type: "static" as const,
       value: "",
     }
   );
-  const [localColor, setLocalColor] = useState(color || BadgeColor.Gray);
+  const [localColor, setLocalColor] = useState<RefOrStatic<BadgeColor>>(
+    color || {
+      type: "static" as const,
+      value: BadgeColor.Gray,
+    }
+  );
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocalName(e.target.value);
   };
 
   const handleColorChange = (color: BadgeColor) => {
-    setLocalColor(color as BadgeColor);
+    setLocalColor({
+      type: "static" as const,
+      value: color,
+    });
   };
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -76,10 +78,10 @@ export function PropsEditor({
     const { value, error } = badgeValidator.validate({
       type: WidgetType.Badge,
       name: localName,
-      label: localLabel,
-      color: localColor,
+      label: localLabel.type === "static" ? localLabel.value : localLabel,
+      color: localColor.type === "static" ? localColor.value : localColor,
     });
-
+    console.log(value, error);
     if (error) {
       setErrorForm({
         label:
@@ -104,7 +106,10 @@ export function PropsEditor({
     if (type === "success") {
       setLocalName("");
       setLocalLabel({ type: "static", value: "" });
-      setLocalColor(BadgeColor.Gray);
+      setLocalColor({
+        type: "static" as const,
+        value: BadgeColor.Gray,
+      });
       setDialogOpen(false);
     } else {
       setErrorForm({

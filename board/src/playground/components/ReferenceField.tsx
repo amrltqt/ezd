@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { RefOrStatic } from "@/widgets";
 
 export function ReferenceField({
   label,
@@ -8,11 +9,16 @@ export function ReferenceField({
   setVariable,
 }: {
   label: string;
-  variable: { type: "static" | "reference"; value: string };
-  setVariable: (value: { type: "static" | "reference"; value: string }) => void;
+  variable: RefOrStatic<string>;
+  setVariable: (value: RefOrStatic<string>) => void;
 }) {
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVariable({ type: variable.type, value: e.target.value });
+    const newValue = e.target.value;
+    if (variable.type === "ref") {
+      setVariable({ type: "ref", key: newValue });
+    } else {
+      setVariable({ type: "static", value: newValue });
+    }
   };
 
   return (
@@ -24,21 +30,22 @@ export function ReferenceField({
         <Input
           id={label}
           className="flex-grow"
-          value={variable.value}
+          value={variable.type === "ref" ? variable.key : variable.value}
           onChange={handleValueChange}
         />
 
         <div className="flex flex-col items-end gap-1">
-          <Label>
-            {variable.type === "reference" ? "Reference" : "Static"}
-          </Label>
+          <Label>{variable.type === "ref" ? "Reference" : "Static"}</Label>
           <Switch
-            checked={variable.type === "reference"}
+            checked={variable.type === "ref"}
             onCheckedChange={(value) => {
-              setVariable({
-                type: value ? "reference" : "static",
-                value: variable.value,
-              });
+              const newValue =
+                variable.type === "ref" ? variable.key : variable.value;
+              if (value) {
+                setVariable({ type: "ref", key: newValue });
+              } else {
+                setVariable({ type: "static", value: newValue });
+              }
             }}
           />
         </div>
