@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
@@ -15,6 +15,12 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import { useRemoveWidget } from "../hooks/useRemoveWidget";
+import {
+  Dialog,
+  DialogContent,
+  DialogPortal,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface TreeNodeProps {
   node: NodeModelWidget;
@@ -29,45 +35,61 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
   isOpen,
   onToggle,
 }) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
   const removeWidget = useRemoveWidget();
 
   const dragOverProps = useDragOver(node.id, isOpen, onToggle);
 
   return (
-    <ContextMenu>
-      <ContextMenuTrigger>
-        <div
-          className="flex items-center justify-between p-2 border"
-          style={{ paddingLeft: 8 + depth * 16 }}
-          {...dragOverProps}
-        >
-          <div className="flex-grow">
-            <TreeNodeRepr type={node.data?.type || "container"} />
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <ContextMenu>
+        <ContextMenuTrigger>
+          <div
+            className="flex items-center justify-between p-2 border cursor-grab"
+            style={{ paddingLeft: 8 + depth * 16 }}
+            {...dragOverProps}
+          >
+            {node.droppable && (
+              <div
+                onClick={onToggle}
+                className="flex items-center cursor-pointer "
+              >
+                {node.data && <TreeNodeRepr widget={node.data} />}
+                {isOpen ? (
+                  <ChevronDownIcon className="w-4 h-4" />
+                ) : (
+                  <ChevronRightIcon className="w-4 h-4" />
+                )}
+              </div>
+            )}
+            {!node.droppable && (
+              <div className="flex-grow">
+                {node.data && <TreeNodeRepr widget={node.data} />}
+              </div>
+            )}
           </div>
-          {node.text}
-          {node.droppable && (
-            <span onClick={onToggle} className="cursor-pointer">
-              {isOpen ? (
-                <ChevronDownIcon className="w-4 h-4" />
-              ) : (
-                <ChevronRightIcon className="w-4 h-4" />
-              )}
-            </span>
-          )}
-        </div>
-      </ContextMenuTrigger>
-      <ContextMenuContent>
-        <ContextMenuItem>
-          <div className="flex items-center w-full">
-            <PencilIcon className="w-4 h-4 mr-2" />
-            Edit
-          </div>
-        </ContextMenuItem>
-        <ContextMenuItem onSelect={() => removeWidget(node.text)}>
-          <TrashIcon className="w-4 h-4 mr-2" />
-          Remove
-        </ContextMenuItem>
-      </ContextMenuContent>
-    </ContextMenu>
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <DialogTrigger asChild>
+            <ContextMenuItem>
+              <div className="flex items-center w-full">
+                <PencilIcon className="w-4 h-4 mr-2" />
+                Edit
+              </div>
+            </ContextMenuItem>
+          </DialogTrigger>
+
+          <ContextMenuItem onSelect={() => removeWidget(node.text)}>
+            <TrashIcon className="w-4 h-4 mr-2" />
+            Remove
+          </ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
+      <DialogPortal>
+        <DialogContent>
+          <h1>Hello</h1>
+        </DialogContent>
+      </DialogPortal>
+    </Dialog>
   );
 };

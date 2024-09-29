@@ -1,6 +1,6 @@
 import { useState } from "react";
 import WidgetEditor from "./components/WidgetEditor";
-import { TreeActions } from "./components/TreeActions";
+import { TreeActions } from "./tree/TreeActions";
 import { NodeModelWidget, useConvertedTree } from "./hooks/useConvertedTree";
 import { WidgetTree } from "./tree/WidgetTree";
 import { Switch } from "@/components/ui/switch";
