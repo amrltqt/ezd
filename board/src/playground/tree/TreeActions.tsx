@@ -62,6 +62,9 @@ export function TreeActions() {
           {selectedForm && selectedForm.propsEditor && (
             <selectedForm.propsEditor
               {...{
+                widget: {
+                  ...selectedForm.defaultProps,
+                },
                 insertWidget,
                 setDialogOpen,
               }}

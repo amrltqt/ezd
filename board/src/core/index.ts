@@ -14,7 +14,10 @@ export interface Row {
 }
 
 export type Reference = { type: "ref"; key: string };
-export type Dataset = Row[] | Reference;
+export type DatasetRef = { type: "ref"; key: string };
+export type DatasetRows = { type: "rows"; rows: Row[] };
+export type Dataset = DatasetRef | DatasetRows;
+
 export type Variable = string | number | Reference;
 
 export type WidgetDefinition = {

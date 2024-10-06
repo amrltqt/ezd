@@ -1,12 +1,17 @@
 import Joi from "joi";
-import { referenceValidator, variableValidator, Widget } from "../../core";
+import {
+  Reference,
+  referenceValidator,
+  variableValidator,
+  Widget,
+} from "@/core";
 import BadgeWidget from "./Badge";
 import { TagIcon } from "lucide-react";
 import { PropsEditor } from "./playground/PropsEditor";
 
 export interface Badge extends Widget {
-  label: string;
-  color: string;
+  label: string | Reference;
+  color: string | Reference;
 }
 
 export enum BadgeColor {
@@ -48,4 +53,10 @@ export default {
   validator: badgeValidator,
   icon: TagIcon,
   propsEditor: PropsEditor,
+  defaultProps: {
+    type: "badge",
+    name: "",
+    label: "Badge",
+    color: BadgeColor.Gray,
+  },
 };

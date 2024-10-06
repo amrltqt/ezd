@@ -8,19 +8,17 @@ import {
 import { TreeNodeRepr } from "./TreeNodeRepr";
 import { NodeModelWidget } from "../hooks/useConvertedTree";
 import { useDragOver } from "@minoru/react-dnd-treeview";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu";
 import { useRemoveWidget } from "../hooks/useRemoveWidget";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogPortal,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { WIDGET_INFO_BY_ID } from "@/widgets";
 
 interface TreeNodeProps {
   node: NodeModelWidget;
@@ -40,54 +38,62 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
 
   const dragOverProps = useDragOver(node.id, isOpen, onToggle);
 
+  if (!node.data) return null;
+
+  const selectedForm = WIDGET_INFO_BY_ID[node.data.type];
+
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-      <ContextMenu>
-        <ContextMenuTrigger>
+      <div
+        className="flex items-center justify-between p-2 border cursor-grab"
+        style={{ paddingLeft: 8 + depth * 16 }}
+        {...dragOverProps}
+      >
+        {node.droppable && (
           <div
-            className="flex items-center justify-between p-2 border cursor-grab"
-            style={{ paddingLeft: 8 + depth * 16 }}
-            {...dragOverProps}
+            onClick={onToggle}
+            className="flex items-center flex-grow cursor-pointer "
           >
-            {node.droppable && (
-              <div
-                onClick={onToggle}
-                className="flex items-center cursor-pointer "
-              >
-                {node.data && <TreeNodeRepr widget={node.data} />}
-                {isOpen ? (
-                  <ChevronDownIcon className="w-4 h-4" />
-                ) : (
-                  <ChevronRightIcon className="w-4 h-4" />
-                )}
-              </div>
-            )}
-            {!node.droppable && (
-              <div className="flex-grow">
-                {node.data && <TreeNodeRepr widget={node.data} />}
-              </div>
+            {node.data && <TreeNodeRepr widget={node.data} />}
+            {isOpen ? (
+              <ChevronDownIcon className="w-4 h-4" />
+            ) : (
+              <ChevronRightIcon className="w-4 h-4" />
             )}
           </div>
-        </ContextMenuTrigger>
-        <ContextMenuContent>
-          <DialogTrigger asChild>
-            <ContextMenuItem>
-              <div className="flex items-center w-full">
-                <PencilIcon className="w-4 h-4 mr-2" />
-                Edit
-              </div>
-            </ContextMenuItem>
-          </DialogTrigger>
+        )}
+        {!node.droppable && (
+          <div className="flex-grow">
+            {node.data && <TreeNodeRepr widget={node.data} />}
+          </div>
+        )}
+        <DialogTrigger asChild>
+          <Button size="sm" variant="ghost" onClick={() => setDialogOpen(true)}>
+            <PencilIcon className="w-4 h-4" />
+          </Button>
+        </DialogTrigger>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="hover:bg-destructive hover:text-destructive-foreground"
+          onClick={() => removeWidget(node.id)}
+        >
+          <TrashIcon className="w-4 h-4" />
+        </Button>
+      </div>
 
-          <ContextMenuItem onSelect={() => removeWidget(node.text)}>
-            <TrashIcon className="w-4 h-4 mr-2" />
-            Remove
-          </ContextMenuItem>
-        </ContextMenuContent>
-      </ContextMenu>
       <DialogPortal>
+        <DialogTitle>Edit widget properties</DialogTitle>
+        <DialogDescription>Edit widget properties</DialogDescription>
         <DialogContent>
-          <h1>Hello</h1>
+          {selectedForm && selectedForm.propsEditor && (
+            <selectedForm.propsEditor
+              {...{
+                setDialogOpen,
+                widget: node.data,
+              }}
+            />
+          )}
         </DialogContent>
       </DialogPortal>
     </Dialog>

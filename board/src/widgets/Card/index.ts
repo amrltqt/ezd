@@ -24,8 +24,8 @@ export interface Card extends Widget {
   value: string | number | Reference;
   label: string;
   align: "left" | "right" | "center";
-  reference?: string;
-  evolution?: string;
+  reference?: string | number | Reference;
+  evolution?: string | number | Reference;
 }
 
 export default {
@@ -35,4 +35,13 @@ export default {
   widget: CardWidget,
   icon: PanelTopIcon,
   propsEditor: PropsEditor,
+  defaultProps: {
+    type: "card",
+    label: "Card",
+    align: CardDisplayPosition.Center,
+    value: "",
+    reference: null,
+    evolution: null,
+    name: "",
+  },
 };

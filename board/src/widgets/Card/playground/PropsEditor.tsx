@@ -17,55 +17,64 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { AnyWidget, RefOrStatic, WidgetType } from "@/widgets";
-import { ReferenceField } from "../../../playground/components/ReferenceField";
+import { RefOrStatic, WidgetType } from "@/widgets";
+import { InputReferenceField } from "@/playground/components/InputReferenceField";
 
 interface ContainerEditorProps {
-  name: string;
-  value: RefOrStatic<string>;
-  label: string;
-  align: "left" | "right" | "center";
-  reference?: RefOrStatic<string>;
-  evolution?: RefOrStatic<string>;
-  direction: CardDisplayPosition;
-  widgets: AnyWidget[];
-  insertWidget: (container: Card) => { type: string; message: string };
+  widget: Card;
+  insertWidget: (card: Card) => { type: string; message: string };
   setDialogOpen: (open: boolean) => void;
 }
 
 export function PropsEditor({
-  name,
-  value,
-  label,
-  align,
-  reference,
-  evolution,
+  widget,
   insertWidget,
   setDialogOpen,
 }: ContainerEditorProps) {
   const [errorForm, setErrorForm] = useState<{
     [key: string]: string;
   }>({});
-  const [localName, setLocalName] = useState(name || "");
-  const [localValue, setLocalValue] = useState(
-    value || {
-      type: "static",
-      value: "",
-    }
+  const [localName, setLocalName] = useState(widget.name || "");
+  const [localValue, setLocalValue] = useState<RefOrStatic<string>>(
+    typeof widget.value === "string" ||
+      typeof widget.value === "number" ||
+      widget.value === undefined
+      ? {
+          type: "static",
+          value: widget.value.toString() || "",
+        }
+      : {
+          type: "ref",
+          key: widget.value.key,
+        }
   );
-  const [localLabel, setLocalLabel] = useState(label || "");
-  const [localAlign, setLocalAlign] = useState(align || "left");
+  const [localLabel, setLocalLabel] = useState(widget.label || "");
+  const [localAlign, setLocalAlign] = useState(widget.align || "left");
   const [localReference, setLocalReference] = useState<RefOrStatic<string>>(
-    reference || {
-      type: "static",
-      value: "",
-    }
+    typeof widget.reference === "string" ||
+      typeof widget.reference === "number" ||
+      widget.reference === undefined
+      ? {
+          type: "static",
+          value: widget.reference?.toString() ?? "",
+        }
+      : {
+          type: "ref",
+          key: widget.reference?.key ?? "",
+        }
   );
   const [localEvolution, setLocalEvolution] = useState<RefOrStatic<string>>(
-    evolution || {
-      type: "static",
-      value: "",
-    }
+    typeof widget.evolution === "string" ||
+      typeof widget.evolution === "number" ||
+      widget.evolution === undefined
+      ? {
+          type: "static",
+          value: widget.evolution?.toString() ?? "",
+        }
+      : {
+          type: "ref",
+          key: widget.evolution?.key ?? "",
+        }
   );
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -182,11 +191,10 @@ export function PropsEditor({
           )}
         </div>
         <div className="grid items-center grid-cols-4 gap-4">
-          <ReferenceField
-            label="Value"
-            variable={localValue}
-            setVariable={setLocalValue}
-          />
+          <Label htmlFor="evolution" className="text-right">
+            Value
+          </Label>
+          <InputReferenceField value={localValue} setVariable={setLocalValue} />
           {errorForm.value && (
             <div className="col-span-3 col-start-2 text-sm text-red-500 ">
               {errorForm.value}
@@ -216,9 +224,11 @@ export function PropsEditor({
           )}
         </div>
         <div className="grid items-center grid-cols-4 gap-4">
-          <ReferenceField
-            label="Reference"
-            variable={localReference}
+          <Label htmlFor="reference" className="text-right">
+            Reference
+          </Label>
+          <InputReferenceField
+            value={localReference}
             setVariable={setLocalReference}
           />
 
@@ -229,9 +239,11 @@ export function PropsEditor({
           )}
         </div>
         <div className="grid items-center grid-cols-4 gap-4">
-          <ReferenceField
-            label="Evolution"
-            variable={localEvolution}
+          <Label htmlFor="evolution" className="text-right">
+            Evolution
+          </Label>
+          <InputReferenceField
+            value={localEvolution}
             setVariable={setLocalEvolution}
           />
           {errorForm.evolution && (

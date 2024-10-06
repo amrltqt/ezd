@@ -3,6 +3,7 @@ import { Variable, variableValidator, Widget } from "../../core";
 import { WidgetType } from "../../widgets";
 import { TitleWidget } from "./Title";
 import { TypeIcon } from "lucide-react";
+import { PropsEditor } from "./playground/PropsEditor";
 
 export enum TitleAlign {
   Horizontal = "horizontal",
@@ -16,7 +17,7 @@ export interface Title extends Widget {
   align: TitleAlign;
 }
 
-const titleValidator = Joi.object({
+export const titleValidator = Joi.object({
   name: Joi.string().required(),
   type: Joi.string().valid("title").required(),
   main: variableValidator.required(),
@@ -30,4 +31,12 @@ export default {
   validator: titleValidator,
   widget: TitleWidget,
   icon: TypeIcon,
+  propsEditor: PropsEditor,
+  defaultProps: {
+    type: "title",
+    name: "",
+    main: "",
+    secondary: "",
+    align: TitleAlign.Horizontal,
+  },
 };

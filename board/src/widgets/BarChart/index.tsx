@@ -5,6 +5,7 @@ import Joi from "joi";
 
 import { BarChartWidget } from "./BarChart";
 import { BarChart3Icon } from "lucide-react";
+import { PropsEditor } from "./playground/PropsEditor";
 
 export interface YAxis {
   name: string;
@@ -39,4 +40,13 @@ export default {
   widget: BarChartWidget,
   validator: barChartValidator,
   icon: BarChart3Icon,
+  propsEditor: PropsEditor,
+  defaultProps: {
+    type: "barchart",
+    title: "Bar Chart",
+    dataset: { type: "ref", key: "" },
+    xaxis: "",
+    yaxis: [],
+    name: "",
+  },
 };

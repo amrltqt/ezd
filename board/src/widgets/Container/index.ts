@@ -30,4 +30,9 @@ export default {
   validator: containerValidator,
   icon: ContainerIcon,
   propsEditor: PropsEditor,
+  defaultProps: {
+    name: "",
+    widgets: [],
+    direction: ContainerDirection.Horizontal,
+  },
 };

@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-import { Dataset, Widget } from "./core";
+import { Dataset, Row, Widget } from "./core";
 import CardDefinition, { Card } from "./widgets/Card";
 import ContainerDefinition, { Container } from "./widgets/Container";
 import TitleDefinition, { Title } from "./widgets/Title";
@@ -127,12 +127,23 @@ export const WIDGET_INFO = DEFINITIONS.map((definition) => ({
   name: definition.name,
   icon: definition.icon,
   propsEditor: definition.propsEditor,
+  defaultProps: definition.defaultProps,
 }));
 
 export const WIDGET_INFO_BY_ID = DEFINITIONS.reduce(
   (acc, definition) => ({ ...acc, [definition.id]: definition }),
   {}
 );
+
+export type RefOrRows =
+  | {
+      type: "ref";
+      key: string;
+    }
+  | {
+      type: "rows";
+      rows: Row[];
+    };
 
 export type RefOrStatic<T> =
   | {

@@ -8,7 +8,7 @@ export function useRemoveWidget() {
   const { widgets, setWidgets } = useContext(BoardContext);
 
   const removeWidget = useCallback(
-    (widgetName: string) => {
+    (widgetName: string | number) => {
       const removeWidgetRecursively = (widgets: Widget[]): Widget[] => {
         return widgets.reduce((acc: Widget[], widget: Widget) => {
           if (widget.name === widgetName) {

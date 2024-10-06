@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Badge, BadgeColor, badgeValidator } from "..";
 import { RefOrStatic, WidgetType } from "@/widgets";
 import { Button } from "@/components/ui/button";
-import { ReferenceField } from "@/playground/components/ReferenceField";
 import {
   DialogClose,
   DialogDescription,
@@ -19,11 +18,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { InputReferenceField } from "@/playground/components/InputReferenceField";
 
 interface BadgeEditorProps {
-  name: string;
-  label: RefOrStatic<string>;
-  color: RefOrStatic<BadgeColor>;
+  widget: Badge;
   insertWidget: (container: Badge) => { type: string; message: string };
   setDialogOpen: (open: boolean) => void;
 }
@@ -35,9 +33,7 @@ interface BadgeEditorError {
 }
 
 export function PropsEditor({
-  name,
-  label,
-  color,
+  widget,
   setDialogOpen,
   insertWidget,
 }: BadgeEditorProps) {
@@ -47,18 +43,28 @@ export function PropsEditor({
     color: null,
   });
 
-  const [localName, setLocalName] = useState(name || "");
+  const [localName, setLocalName] = useState(widget.name || "");
   const [localLabel, setLocalLabel] = useState<RefOrStatic<string>>(
-    label || {
-      type: "static" as const,
-      value: "",
-    }
+    typeof widget.label === "string"
+      ? {
+          type: "static",
+          value: widget.label.toString() ?? "",
+        }
+      : {
+          type: "ref",
+          key: widget.label.key,
+        }
   );
   const [localColor, setLocalColor] = useState<RefOrStatic<BadgeColor>>(
-    color || {
-      type: "static" as const,
-      value: BadgeColor.Gray,
-    }
+    typeof widget.color === "string"
+      ? {
+          type: "static",
+          value: (widget.color as BadgeColor) || BadgeColor.Gray,
+        }
+      : {
+          type: "ref",
+          key: widget.color.key,
+        }
   );
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +87,6 @@ export function PropsEditor({
       label: localLabel.type === "static" ? localLabel.value : localLabel,
       color: localColor.type === "static" ? localColor.value : localColor,
     });
-    console.log(value, error);
     if (error) {
       setErrorForm({
         label:
@@ -144,11 +149,10 @@ export function PropsEditor({
           )}
         </div>
         <div className="grid items-center grid-cols-4 gap-4">
-          <ReferenceField
-            label="Label"
-            setVariable={setLocalLabel}
-            variable={localLabel}
-          />
+          <Label htmlFor="label" className="text-right">
+            Label
+          </Label>
+          <InputReferenceField setVariable={setLocalLabel} value={localLabel} />
           {errorForm.label && (
             <div className="col-span-3 col-start-2 text-sm text-red-500 ">
               {errorForm.label}

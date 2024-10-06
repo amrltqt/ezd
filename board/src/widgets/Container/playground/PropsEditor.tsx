@@ -17,28 +17,24 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { AnyWidget, WidgetType } from "@/widgets";
+import { WidgetType } from "@/widgets";
 
 interface ContainerEditorProps {
-  name: string;
-  direction: ContainerDirection;
-  widgets: AnyWidget[];
+  widget: Container;
   insertWidget: (container: Container) => { type: string; message: string };
   setDialogOpen: (open: boolean) => void;
 }
 
 export function PropsEditor({
-  name,
-  direction,
-  widgets = [],
+  widget,
   insertWidget,
   setDialogOpen,
 }: ContainerEditorProps) {
-  const [localName, setLocalName] = useState(name || "");
+  const [localName, setLocalName] = useState(widget.name || "");
   const [localNameError, setLocalNameError] = useState<string>("");
 
   const [localDirection, setLocalDirection] = useState<ContainerDirection>(
-    direction || ContainerDirection.Horizontal
+    widget.direction || ContainerDirection.Horizontal
   );
   const [localDirectionError, setLocalDirectionError] = useState<string | null>(
     null
@@ -59,7 +55,7 @@ export function PropsEditor({
       type: WidgetType.Container,
       name: localName,
       direction: localDirection,
-      widgets,
+      widgets: [],
     });
 
     if (error) {

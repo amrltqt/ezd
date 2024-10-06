@@ -6,6 +6,9 @@ interface TreeNodeReprProps {
 }
 
 export function TreeNodeRepr({ widget }: TreeNodeReprProps) {
+  if (!widget) {
+    return null;
+  }
   const definition = WIDGET_INFO_BY_ID[widget.type];
   if (!definition) {
     return null;
